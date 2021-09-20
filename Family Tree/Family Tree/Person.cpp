@@ -13,7 +13,29 @@ Person::Person(const char* n, const int a)
 	setAge(a);
 }
 
+Person& Person::operator=(const Person& other)
+{
+	if (this != &other)
+	{
+		clear();
+		copy(other);
+	}
+	return *this;
+}
+
 Person::~Person()
+{
+	delete[] name;
+}
+
+void Person::copy(const Person& other)
+{
+	name = new char[strlen(other.getName()) + 1];
+	strcpy_s(name, strlen(other.getName()) + 1, other.getName());
+	age = other.getAge();
+}
+
+void Person::clear()
 {
 	delete[] name;
 }
